@@ -1,0 +1,9 @@
+[
+  {
+    "kind": "Method",
+    "label": "alertExFromFile",
+    "detail": "function alertExFromFile(message: string): void",
+    "insertText": "alertExFromFile(\"${1:message}\");",
+    "documentation": "Show an app alert"
+  }
+]
