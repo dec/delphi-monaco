@@ -3,15 +3,13 @@ Note: This instructions are for developing purposes. The Delphi library will alw
 include a compiled editor ready to use, so, in principle, you no need to follow the
 below steps to compile the editor.
 
----
-
 This folder contains the HTML and JavaScript code which implement the
 Monaco Editor used by the Delphi library for Monaco Editor.
 
 The main HTML and JavaScript code are placed at the "app" folder.
 
 The Delphi library for Monaco Editor is published with a compiled version
-of the app, but, it's also possible to compile the editor app with the 
+of the app, but, it's also possible to compile the editor app with the
 stuff of this folder.
 
 At the "webpack.config.js" file we can specify the version of Monaco Editor

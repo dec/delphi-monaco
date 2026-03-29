@@ -56,15 +56,22 @@ type
     procedure BrowserNewWindowRequested(Sender: TObject; const aWebView: ICoreWebView2; const aArgs: ICoreWebView2NewWindowRequestedEventArgs);
     procedure BrowserNavigationCompleted(Sender: TObject; const aWebView: ICoreWebView2; const aArgs: ICoreWebView2NavigationCompletedEventArgs);
     procedure BrowserPermissionRequested(Sender: TObject; const aWebView: ICoreWebView2; const aArgs: ICoreWebView2PermissionRequestedEventArgs);
+    procedure FormDestroy(Sender: TObject);
   private
     FEditor: TObject;
     FStartPageURL: string;
     FEditorCreated: Boolean;
     FBrowserLoaded: Boolean;
+    // https://github.com/salvadordf/WebView4Delphi/issues/13#issuecomment-1009469854
+    FTemporalForm: TForm;
+    FRestoreHandle: Boolean;
   private
+    procedure ChangeParent();
+    procedure RestoreParent();
     procedure AddScriptOnDocument();
     procedure PrepareLocaleLanguage();
   protected
+    procedure WndProc(var Message: TMessage); override;
     procedure WMMove(var aMessage : TWMMove); message WM_MOVE;
     procedure WMMoving(var aMessage : TMessage); message WM_MOVING;
   public
@@ -105,6 +112,15 @@ begin
 
   // So we do not forget to set this at design time
   Self.Browser.DefaultURL := 'https://decsoft.monaco.editor/editor.html';
+
+  FTemporalForm := nil;
+  FRestoreHandle := False;
+end;
+
+procedure TMonacoBrowserForm.FormDestroy(Sender: TObject);
+begin
+  if Assigned(FTemporalForm) then
+    FreeAndNil(FTemporalForm);
 end;
 
 procedure TMonacoBrowserForm.InitializeBrowser();
@@ -132,6 +148,55 @@ begin
 
   if (Browser <> nil) then
     Browser.NotifyParentWindowPositionChanged;
+end;
+
+procedure TMonacoBrowserForm.WndProc(var Message: TMessage);
+begin
+  inherited;
+
+  if csDestroying in Self.ComponentState then
+    Exit;
+
+  if (csRecreating in ControlState) then
+    Self.ChangeParent()
+  else if FRestoreHandle then
+    Self.RestoreParent();
+end;
+
+procedure TMonacoBrowserForm.ChangeParent();
+begin
+  if csDestroying in Self.ComponentState then
+    Exit;
+
+  if (Browser <> nil) and (Browser.Initialized) then
+  begin
+    if not Assigned(FTemporalForm) then
+    begin
+      FTemporalForm := TForm.Create(nil);
+    end;
+    if FTemporalForm.Handle <> Browser.ParentWindow then
+      Browser.ParentWindow := FTemporalForm.Handle;
+    FRestoreHandle := True;
+  end;
+end;
+
+procedure TMonacoBrowserForm.RestoreParent();
+begin
+  if csDestroying in Self.ComponentState then
+    Exit;
+
+  if (Browser <> nil ) and FRestoreHandle and Browser.Initialized then
+  begin
+    if Browser.ParentWindow <> BrowserWindow.Handle then
+    begin
+      Browser.ParentWindow := BrowserWindow.Handle;
+      Browser.NotifyParentWindowPositionChanged;
+      BrowserWindow.UpdateSize;
+    end;
+    FRestoreHandle := False;
+    if Assigned(FTemporalForm) then
+      FreeAndNil(FTemporalForm);
+  end;
 end;
 
 procedure TMonacoBrowserForm.BrowserAfterCreated(Sender: TObject);

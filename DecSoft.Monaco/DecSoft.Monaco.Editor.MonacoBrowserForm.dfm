@@ -12,6 +12,7 @@ object MonacoBrowserForm: TMonacoBrowserForm
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 13
   object BrowserWindow: TWVWindowParent
