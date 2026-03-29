@@ -33,7 +33,7 @@ self.MonacoEnvironment = {
      started: false,
      completionsProviders: [],
 
-   		start (language, options) {
+   		start (options) {
 
    			 if (this.started)
          return;

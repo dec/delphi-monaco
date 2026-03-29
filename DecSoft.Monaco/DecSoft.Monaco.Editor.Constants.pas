@@ -51,9 +51,9 @@ type
     EditorSearchFunction = 'window.editor.search(%s)';
     EditorGetValueFunction = 'window.editor.getValue();';
     EditorSetValueFunction = 'window.editor.setValue(%s)';
+    EditorStartLocalFunction = 'window.editor.start(%s);';
     EditorInsertTextFunction = 'window.editor.insertText(%s)';
     EditorExecActionFunction = 'window.editor.execAction(%s);';
-    EditorStartLocalFunction = 'window.editor.start("%s", %s);';
     EditorGetLanguagesFunction = 'window.editor.getLanguages();';
     EditorUpdateOptionsFunction = 'window.editor.updateOptions(%s);';
     EditorSetJSExtraLibsFunction = 'window.editor.setJSExtraLibs(%s);';

@@ -63,6 +63,7 @@ type
     FBrowserLoaded: Boolean;
   private
     procedure AddScriptOnDocument();
+    procedure PrepareLocaleLanguage();
   protected
     procedure WMMove(var aMessage : TWMMove); message WM_MOVE;
     procedure WMMoving(var aMessage : TMessage); message WM_MOVING;
@@ -88,7 +89,8 @@ uses
 
   // DecSoft
   DecSoft.Monaco.Editor,
-  DecSoft.Monaco.Editor.Constants;
+  DecSoft.Monaco.Editor.Constants,
+  DecSoft.Monaco.Editor.UTF8NBEncoding;
 
 constructor TMonacoBrowserForm.Create(Editor: TObject);
 begin
@@ -138,6 +140,12 @@ begin
 
   Self.AddScriptOnDocument();
 
+  if (TMonacoEditor(FEditor).LocaleLanguage <>
+   TMonacoEditorConstants.EditorDefaultLocaleLanguage) then
+  begin
+    Self.PrepareLocaleLanguage();
+  end;
+
   if BrowserWindow.CanFocus() then
     BrowserWindow.SetFocus;
 
@@ -167,16 +175,38 @@ procedure TMonacoBrowserForm.BrowserNavigationCompleted(Sender: TObject;
   const aWebView: ICoreWebView2;
   const aArgs: ICoreWebView2NavigationCompletedEventArgs);
 begin
-
   // Start the HTML / JavaScript editor
   Browser.ExecuteScript(Format(
     TMonacoEditorConstants.EditorStartLocalFunction,
-    [
-      TMonacoEditor(FEditor).LocaleLanguage,
-      TMonacoEditor(FEditor).Options.ToJSONString
-    ]));
+    [TMonacoEditor(FEditor).Options.ToJSONString]));
 
   FBrowserLoaded := True;
+end;
+
+procedure TMonacoBrowserForm.PrepareLocaleLanguage();
+var
+  LocaleFileContents: TStrings;
+  JSCode, LocaleFilePath: string;
+begin
+  LocaleFilePath := TMonacoEditor(FEditor).EditorDirPath +
+   Format('nls.messages.%s.js',
+    [LowerCase(TMonacoEditor(FEditor).LocaleLanguage)]);
+
+  if not FileExists(LocaleFilePath) then
+    Exit;
+
+  LocaleFileContents := TStringList.Create();
+  try
+    LocaleFileContents.LoadFromFile(LocaleFilePath, MonacoEditorUTF8NBEncoding);
+
+    JSCode := 'const localeScript = document.createElement("script");';
+    JSCode := JSCode + Format('localeScript.innerText = %s;', [LocaleFileContents.Text]);
+
+    Browser.AddScriptToExecuteOnDocumentCreated(JSCode);
+
+  finally
+    LocaleFileContents.Free();
+  end;
 end;
 
 procedure TMonacoBrowserForm.BrowserNewWindowRequested(Sender: TObject;
@@ -283,7 +313,6 @@ procedure TMonacoBrowserForm.AddScriptOnDocument();
 var
   JSCode: string;
 begin
-
   // When the HTML window load...
   JSCode := 'window.addEventListener("load", function() { ';
 

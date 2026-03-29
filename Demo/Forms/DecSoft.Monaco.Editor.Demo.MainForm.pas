@@ -147,10 +147,25 @@ begin
   FMonacoEditor.Options.AllowDropFiles := AllowDropFilesCheckBox.Checked;
 
   (*
-    Right now only the English language is supported: I expect to support
-    more languages (all the availables) in a future release of the library.
+    The language of the editor interface cannot be changed after the editor
+    is started. The available languages are:
+
+    en = English (By default)
+    es = Spanish
+    cs = Czech
+    de = German
+    fr = French
+    it = Italian
+    ja = Japanese
+    ko = Korean
+    pl = Portuguese
+    pl = Polish
+    pt-br = Brazilian Portuguese
+    ru = Russian
+    zh-cn = Chinese
+    zh-tw = Chinese (Taiwan)
   *)
-  FMonacoEditor.LocaleLanguage := 'en';
+  FMonacoEditor.LocaleLanguage := 'es';
 
   // Start the editor with the above settings and options.
   FMonacoEditor.Start();
@@ -359,6 +374,8 @@ begin
     begin
       Completions.Free();
     end);
+
+  FMonacoEditor.OpenDevConsole();
 end;
 
 procedure TMainForm.EditorDropFile(Sender: TObject; const FileName: TFileName);

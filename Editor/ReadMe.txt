@@ -1,4 +1,10 @@
 
+Note: This instructions are for developing purposes. The Delphi library will alway
+include a compiled editor ready to use, so, in principle, you no need to follow the
+below steps to compile the editor.
+
+---
+
 This folder contains the HTML and JavaScript code which implement the
 Monaco Editor used by the Delphi library for Monaco Editor.
 
@@ -14,29 +20,32 @@ that we want to use when compile the app.
 If we need to modify or enhance the editor app, we must edit the files placed
 at the "app" folder.
 
-Once we modify the app, we must copy the "app\editor.html" and "app\favicon.ico"
-into the "dist" folder.
+How to compile the editor ESM to be ready?
 
-Then we must folow the below steps to compile the editor app to be ready to
-use with the Delphi library for Monaco Editor:
+0º Install NodeJS if missing in the system
 
-0º NodeJS is required, and, probably you must install "webpack" too if not available.
+1º Install NPM WebPack (maybe it's required to install automatically)
 
-1º Open a CMD console on this folder.
+2º Run the "compile.bat" file
 
-2º Run: npm install
+If everything is right, the "dist" folder will contain the editor files ready to be used.
 
-3º Run: npm run build
+Due to what apparently is a bug, we need to do the below manually:
 
-If everything is OK, you must have all the required files at the "dist" folder.
+1º Open the "dist" folder and you will see a couple of TTF files.
 
-You can then copy the files from the "dist" to "..\DecSoft.Monaco\editor\"
+2º One TTF file name is larger than the other, for example:
 
-Note, however, that the location of the editor is intended to be used by the
-demo program of the Delphi library for Monaco Editor: if you use this library
-in your program, you must redistribute the files from the "dist" (or the
-"..\DecSoft.Monaco\editor\".
+ef00443f4903ec1f0049.ttf
+4c354c82c52ca6cc254386118520f3cd.ttf
 
-The demo program shows you how we can specify the path for the editor folder,
-so, the folder can be in any place, and you can point to it accordingly. 
- 
+3º Rename the file with the larger file to the file with the short name.
+
+Finally you must get a file (following the above sample files) like:
+
+ef00443f4903ec1f0049.ttf
+
+... which is in fact the "4c354c82c52ca6cc254386118520f3cd.ttf", that is,
+the "ef00443f4903ec1f0049.ttf" is the one expected by the editor, but, the
+content of this file is placed at "4c354c82c52ca6cc254386118520f3cd.ttf".
+
