@@ -111,7 +111,7 @@ begin
   Self.BrowserWindow.Browser := Self.Browser;
 
   // So we do not forget to set this at design time
-  Self.Browser.DefaultURL := 'https://decsoft.monaco.editor/editor.html';
+  Self.Browser.DefaultURL := TMonacoEditorConstants.EditorVirtualHostDefaultUrl;
 
   FTemporalForm := nil;
   FRestoreHandle := False;
@@ -232,8 +232,10 @@ begin
   Browser.CoreWebView2Settings.HiddenPdfToolbarItems := COREWEBVIEW2_PDF_TOOLBAR_ITEMS_NONE;
 
   // Do the magic
-  Browser.SetVirtualHostNameToFolderMapping('decsoft.monaco.editor',
-   ExtractFileDir(FStartPageURL), COREWEBVIEW2_HOST_RESOURCE_ACCESS_KIND_ALLOW);
+  Browser.SetVirtualHostNameToFolderMapping(
+   TMonacoEditorConstants.EditorVirtualHostName,
+    ExtractFileDir(FStartPageURL),
+     COREWEBVIEW2_HOST_RESOURCE_ACCESS_KIND_ALLOW);
 end;
 
 procedure TMonacoBrowserForm.BrowserNavigationCompleted(Sender: TObject;

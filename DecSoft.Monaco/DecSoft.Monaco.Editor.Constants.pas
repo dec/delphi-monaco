@@ -47,6 +47,10 @@ type
     // Editor related
     EditorDefaultLocaleLanguage = 'en';
 
+    // Editor virtual host related
+    EditorVirtualHostName = 'decsoft.monaco.editor';
+    EditorVirtualHostDefaultUrl = 'https://decsoft.monaco.editor/editor.html';
+
     // Method signatures related
     EditorSearchFunction = 'window.editor.search(%s)';
     EditorGetValueFunction = 'window.editor.getValue();';
