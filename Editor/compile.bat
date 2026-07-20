@@ -31,3 +31,5 @@ DEL .\package-lock.json
 
 RMDIR /S /Q .\node_modules\
 
+
+PAUSE
