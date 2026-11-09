@@ -6,4 +6,5 @@ CD %~dp0
 
 npm install
 
-npx npm-check-updates -u
+npm install minimizer-webpack-plugin --save-dev
+

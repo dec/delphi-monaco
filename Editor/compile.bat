@@ -11,25 +11,24 @@ CALL .\_build.bat
 
 CALL .\_run.bat
 
-COPY .\app\editor.html .\dist\ /Y 
+COPY .\app\editor.html .\dist\ /Y
 COPY .\app\favicon.ico .\dist\ /Y
-COPY .\node_modules\monaco-editor\esm\nls.messages.cs.js .\dist\ /Y
-COPY .\node_modules\monaco-editor\esm\nls.messages.de.js .\dist\ /Y
-COPY .\node_modules\monaco-editor\esm\nls.messages.es.js .\dist\ /Y
-COPY .\node_modules\monaco-editor\esm\nls.messages.fr.js .\dist\ /Y
-COPY .\node_modules\monaco-editor\esm\nls.messages.it.js .\dist\ /Y
-COPY .\node_modules\monaco-editor\esm\nls.messages.ja.js .\dist\ /Y
-COPY .\node_modules\monaco-editor\esm\nls.messages.ko.js .\dist\ /Y
-COPY .\node_modules\monaco-editor\esm\nls.messages.pl.js .\dist\ /Y
-COPY .\node_modules\monaco-editor\esm\nls.messages.pt-br.js .\dist\ /Y
-COPY .\node_modules\monaco-editor\esm\nls.messages.ru.js .\dist\ /Y
-COPY .\node_modules\monaco-editor\esm\nls.messages.tr.js .\dist\ /Y
-COPY .\node_modules\monaco-editor\esm\nls.messages.zh-cn.js .\dist\ /Y
-COPY .\node_modules\monaco-editor\esm\nls.messages.zh-tw.js .\dist\ /Y
+COPY .\node_modules\monaco-editor\esm\vs\nls\lang\cs.js .\dist\ /Y
+COPY .\node_modules\monaco-editor\esm\vs\nls\lang\de.js .\dist\ /Y
+COPY .\node_modules\monaco-editor\esm\vs\nls\lang\es.js .\dist\ /Y
+COPY .\node_modules\monaco-editor\esm\vs\nls\lang\fr.js .\dist\ /Y
+COPY .\node_modules\monaco-editor\esm\vs\nls\lang\it.js .\dist\ /Y
+COPY .\node_modules\monaco-editor\esm\vs\nls\lang\ja.js .\dist\ /Y
+COPY .\node_modules\monaco-editor\esm\vs\nls\lang\ko.js .\dist\ /Y
+COPY .\node_modules\monaco-editor\esm\vs\nls\lang\pl.js .\dist\ /Y
+COPY .\node_modules\monaco-editor\esm\vs\nls\lang\pt-br.js .\dist\ /Y
+COPY .\node_modules\monaco-editor\esm\vs\nls\lang\ru.js .\dist\ /Y
+COPY .\node_modules\monaco-editor\esm\vs\nls\lang\tr.js .\dist\ /Y
+COPY .\node_modules\monaco-editor\esm\vs\nls\lang\zh-cn.js .\dist\ /Y
+COPY .\node_modules\monaco-editor\esm\vs\nls\lang\zh-tw.js .\dist\ /Y
 
 DEL .\package-lock.json
 
 RMDIR /S /Q .\node_modules\
-
 
 PAUSE

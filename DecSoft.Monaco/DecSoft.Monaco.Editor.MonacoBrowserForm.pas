@@ -256,7 +256,7 @@ var
   JSCode, LocaleFilePath: string;
 begin
   LocaleFilePath := TMonacoEditor(FEditor).EditorDirPath +
-   Format('nls.messages.%s.js',
+   Format('%s.js',
     [LowerCase(TMonacoEditor(FEditor).LocaleLanguage)]);
 
   if not FileExists(LocaleFilePath) then

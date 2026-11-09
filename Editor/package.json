@@ -6,7 +6,7 @@
 	"dependencies": {
 		"css-loader": "^7.1.2",
 		"file-loader": "^6.2.0",
-		"monaco-editor": "^0.55.1",
+		"monaco-editor": "^0.57.0",
 		"style-loader": "^4.0.0",
 		"webpack": "^5.102.1"
 	},

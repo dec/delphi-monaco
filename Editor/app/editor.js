@@ -45,12 +45,12 @@ self.MonacoEnvironment = {
  			 if (this.started)
        return;
 
-     monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
+     monaco.typescript.javascriptDefaults.setCompilerOptions({
  	     allowNonTsExtensions: true,
- 	     target: monaco.languages.typescript.ScriptTarget.ES2015
+ 	     target: monaco.typescript.ScriptTarget.ES2015
      });
 
-     monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
+     monaco.typescript.javascriptDefaults.setDiagnosticsOptions({
  	     noSyntaxValidation: false,
  	     noSemanticValidation: true
      });
@@ -131,7 +131,7 @@ self.MonacoEnvironment = {
 
  		setJSExtraLibs (content) {
 
-     monaco.languages.typescript.javascriptDefaults.setExtraLibs([{ content: content.value }]);
+     monaco.typescript.javascriptDefaults.setExtraLibs([{ content: content.value }]);
  		},
 
  		getLanguages () {

@@ -1,5 +1,5 @@
 
-Note: This instructions are for developing purposes. The Delphi library will alway
+Note: This instructions are for developing purposes. The Delphi library will always
 include a compiled editor ready to use, so, in principle, you no need to follow the
 below steps to compile the editor.
 
