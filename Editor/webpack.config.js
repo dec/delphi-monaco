@@ -5,7 +5,6 @@ module.exports = {
  optimization: {
 			minimize: true,
 		 chunkIds: 'named',
-			minimize: true,
    minimizer: [new MinimizerPlugin()]
  },
 	mode: 'production',
@@ -30,7 +29,7 @@ module.exports = {
 			},
 			{
 				test: /\.ttf$/,
-				use: ['file-loader']
+    type: 'asset/resource'
 			}
 		]
 	}
