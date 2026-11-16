@@ -3,7 +3,8 @@
 
  Copyright (c) DecSoft Utils
 
- https://www.decsoftutils.com/
+
+ https://www.decsoftutils.com/
 
  MIT license
 
@@ -53,7 +54,7 @@ uses
   // Delphi
   System.SyncObjs;
 
-function TMonacoEditorUTF8NBEncoding.Clone: TEncoding;
+function TMonacoEditorUTF8NBEncoding.Clone(): TEncoding;
 begin
   Result := TMonacoEditorUTF8NBEncoding.Create();
 end;
