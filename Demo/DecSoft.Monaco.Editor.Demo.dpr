@@ -14,7 +14,6 @@ uses
   DecSoft.Monaco.Editor.SysUtils in '..\DecSoft.Monaco\DecSoft.Monaco.Editor.SysUtils.pas',
   DecSoft.Monaco.Editor.Constants in '..\DecSoft.Monaco\DecSoft.Monaco.Editor.Constants.pas',
   DecSoft.Monaco.Editor.Demo.MainForm in 'Forms\DecSoft.Monaco.Editor.Demo.MainForm.pas' {MainForm},
-  DecSoft.Monaco.Editor.UTF8NBEncoding in '..\DecSoft.Monaco\DecSoft.Monaco.Editor.UTF8NBEncoding.pas',
   DecSoft.Monaco.Editor.MonacoBrowserForm in '..\DecSoft.Monaco\DecSoft.Monaco.Editor.MonacoBrowserForm.pas' {MonacoBrowserForm};
 
 {$R *.res}

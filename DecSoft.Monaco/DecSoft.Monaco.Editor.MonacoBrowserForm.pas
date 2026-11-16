@@ -96,8 +96,7 @@ uses
 
   // DecSoft
   DecSoft.Monaco.Editor,
-  DecSoft.Monaco.Editor.Constants,
-  DecSoft.Monaco.Editor.UTF8NBEncoding;
+  DecSoft.Monaco.Editor.Constants;
 
 constructor TMonacoBrowserForm.Create(Editor: TObject);
 begin
@@ -264,7 +263,8 @@ begin
 
   LocaleFileContents := TStringList.Create();
   try
-    LocaleFileContents.LoadFromFile(LocaleFilePath, TMonacoEditorUTF8NBEncoding.Instance);
+    LocaleFileContents.WriteBOM := False;
+    LocaleFileContents.LoadFromFile(LocaleFilePath, TEncoding.UTF8);
 
     JSCode := 'const localeScript = document.createElement("script");';
     JSCode := JSCode + Format('localeScript.innerText = %s;', [LocaleFileContents.Text]);

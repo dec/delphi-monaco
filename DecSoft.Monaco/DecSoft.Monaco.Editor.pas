@@ -114,8 +114,7 @@ uses
 
   // DecSoft
   DecSoft.Monaco.Editor.SysUtils,
-  DecSoft.Monaco.Editor.Constants,
-  DecSoft.Monaco.Editor.UTF8NBEncoding;
+  DecSoft.Monaco.Editor.Constants;
 
 { TMonacoEditor }
 
@@ -302,8 +301,9 @@ begin
     begin
       FileContents := TStringList.Create();
       try
+        FileContents.WriteBOM := False;
         FileContents.Text := Value;
-        FileContents.SaveToFile(FileName, TMonacoEditorUTF8NBEncoding.Instance);
+        FileContents.SaveToFile(FileName, TEncoding.UTF8);
 
         if Assigned(SavedFileProc) then
           SavedFileProc(Self);
