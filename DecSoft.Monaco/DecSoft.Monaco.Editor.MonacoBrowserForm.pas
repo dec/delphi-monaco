@@ -264,7 +264,7 @@ begin
 
   LocaleFileContents := TStringList.Create();
   try
-    LocaleFileContents.LoadFromFile(LocaleFilePath, MonacoEditorUTF8NBEncoding);
+    LocaleFileContents.LoadFromFile(LocaleFilePath, TMonacoEditorUTF8NBEncoding.Instance);
 
     JSCode := 'const localeScript = document.createElement("script");';
     JSCode := JSCode + Format('localeScript.innerText = %s;', [LocaleFileContents.Text]);

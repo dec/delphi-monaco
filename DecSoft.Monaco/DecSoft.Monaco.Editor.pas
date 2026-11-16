@@ -303,7 +303,7 @@ begin
       FileContents := TStringList.Create();
       try
         FileContents.Text := Value;
-        FileContents.SaveToFile(FileName, MonacoEditorUTF8NBEncoding);
+        FileContents.SaveToFile(FileName, TMonacoEditorUTF8NBEncoding.Instance);
 
         if Assigned(SavedFileProc) then
           SavedFileProc(Self);

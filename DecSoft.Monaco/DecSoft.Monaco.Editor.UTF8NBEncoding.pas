@@ -36,24 +36,55 @@ uses
 
 type
   TMonacoEditorUTF8NBEncoding = class(TUTF8Encoding)
+  private
+    class var FInstance: TEncoding;
+    class function GetInstance(): TEncoding; static;
   public
-   function GetPreamble: TBytes; override;
+    class destructor Destroy;
+    function Clone(): TEncoding; override;
+    function GetPreamble(): TBytes; override;
+  public
+    class property Instance: TEncoding read GetInstance;
   end;
-
-var
-  MonacoEditorUTF8NBEncoding: TMonacoEditorUTF8NBEncoding;
 
 implementation
 
-function TMonacoEditorUTF8NBEncoding.GetPreamble(): TBytes;
+uses
+  // Delphi
+  System.SyncObjs;
+
+function TMonacoEditorUTF8NBEncoding.Clone: TEncoding;
 begin
-  SetLength(Result, 0);
+  Result := TMonacoEditorUTF8NBEncoding.Create();
 end;
 
-initialization
-  MonacoEditorUTF8NBEncoding := TMonacoEditorUTF8NBEncoding.Create();
+class destructor TMonacoEditorUTF8NBEncoding.Destroy();
+begin
+  FreeAndNil(FInstance);
+end;
 
-finalization
-  MonacoEditorUTF8NBEncoding.Free();
+class function TMonacoEditorUTF8NBEncoding.GetInstance(): TEncoding;
+var
+  LEncoding: TEncoding;
+begin
+  if FInstance = nil then
+  begin
+    LEncoding := TMonacoEditorUTF8NBEncoding.Create();
+
+    if TInterlocked.CompareExchange(Pointer(FInstance),
+     Pointer(LEncoding), nil) <> nil then
+    begin
+      LEncoding.Free();
+    end;
+  end;
+
+  Result := FInstance;
+end;
+
+function TMonacoEditorUTF8NBEncoding.GetPreamble(): TBytes;
+begin
+  Result := nil;
+end;
 
 end.
+
